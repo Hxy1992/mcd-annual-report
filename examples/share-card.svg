@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="1000" viewBox="0 0 750 1000">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#da291c"/><stop offset="0.55" stop-color="#a8121b"/><stop offset="1" stop-color="#6d0d14"/>
+</linearGradient></defs>
+<rect width="750" height="1000" fill="url(#bg)"/>
+<circle cx="645" cy="100" r="255" fill="#ffc72c" opacity="0.14"/>
+<text x="375" y="96" text-anchor="middle" font-size="24" font-weight="600" fill="rgba(255,255,255,0.72)" letter-spacing="6">我 的 麦 麦 年 报</text>
+<text x="375" y="210" text-anchor="middle" font-size="76" font-weight="800" fill="#ffc72c">LNGT</text>
+<text x="375" y="292" text-anchor="middle" font-size="52" font-weight="800" fill="#ffffff">夜局新晋红人</text>
+<text x="375" y="352" text-anchor="middle" font-size="24" fill="rgba(255,255,255,0.85)">入局不久，已是焦点</text>
+<line x1="70" y1="460" x2="680" y2="460" stroke="rgba(255,199,44,0.55)" stroke-width="2"/>
+<text x="375" y="560" text-anchor="middle" font-size="26" fill="rgba(255,255,255,0.92)">吃过的餐品 23 种</text><text x="375" y="612" text-anchor="middle" font-size="26" fill="rgba(255,255,255,0.92)">最常点「巨无霸」×14</text><text x="375" y="664" text-anchor="middle" font-size="26" fill="rgba(255,255,255,0.92)">最常在「夜宵」时段出没</text><text x="375" y="716" text-anchor="middle" font-size="26" fill="rgba(255,255,255,0.92)">根据地：麦当劳(国贸三期餐厅)</text>
+<text x="375" y="870" text-anchor="middle" font-size="20" fill="rgba(255,255,255,0.55)">麦麦年报 MCD Wrapped</text>
+<text x="375" y="908" text-anchor="middle" font-size="20" fill="rgba(255,255,255,0.55)">非麦当劳官方产品 · 仅供娱乐参考</text>
+</svg>

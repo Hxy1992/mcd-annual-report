@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 输出产物（本地生成的报告，不进仓库）
+output/
+*.html
+!examples/*.html
+
+# 环境变量与敏感信息（绝不入库）
+.env
+*.token
+*_token*
+
+# 编辑器
+.idea/
+.vscode/
+.DS_Store
+.playwright-cli/

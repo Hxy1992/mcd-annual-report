@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="麦麦年报 MCD Wrapped —— 你的麦当劳年度美食报告（非官方参赛作品）">
+<title>麦麦年报 MCD Wrapped · 麦麦体验用户</title>
+<style>/* 麦麦年报 · 样式（移动端优先，内联进最终单文件 HTML） */
+:root {
+  --mcd-red: #da291c;
+  --mcd-red-deep: #a8121b;
+  --mcd-yellow: #ffc72c;
+  --mcd-yellow-deep: #ffb000;
+  --ink: #2b1d12;
+  --ink-soft: #6b5847;
+  --cream: #fff8e7;
+  --dark: #21160e;
+  --dark-soft: #3a2a1a;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC",
+    "MiSans", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  color: var(--ink);
+  background: var(--dark);
+  overflow-x: hidden;
+}
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 8vh 22px;
+  position: relative;
+  overflow: hidden;
+}
+.p-cover { background: linear-gradient(165deg, var(--mcd-red) 0%, var(--mcd-red-deep) 52%, #6d0d14 100%); color: #fff; }
+.p-light { background: var(--cream); color: var(--ink); }
+.p-white { background: #fff; color: var(--ink); }
+.p-dark { background: radial-gradient(120% 100% at 50% 0%, var(--dark-soft) 0%, var(--dark) 70%); color: #ffe9c2; }
+.p-gold { background: linear-gradient(165deg, var(--mcd-yellow) 0%, var(--mcd-yellow-deep) 100%); color: var(--ink); }
+.p-persona { background: linear-gradient(165deg, var(--mcd-red-deep) 0%, var(--mcd-red) 60%, #e8503f 100%); color: #fff; }
+.kicker {
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.title { font-size: clamp(30px, 8.4vw, 52px); font-weight: 800; line-height: 1.18; margin: 0 0 10px; }
+.subtitle { font-size: clamp(15px, 4.2vw, 19px); opacity: 0.85; line-height: 1.7; margin: 0; }
+.big-num {
+  font-size: clamp(56px, 17vw, 110px);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  margin: 6px 0 2px;
+}
+.big-num .unit { font-size: 0.32em; font-weight: 700; margin-left: 4px; opacity: 0.8; }
+.num-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 26px 34px; margin-top: 8px; }
+.num-cell { min-width: 120px; }
+.num-cell .n { font-size: clamp(34px, 9vw, 54px); font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.num-cell .l { font-size: 13px; opacity: 0.72; margin-top: 6px; }
+.chart { width: min(560px, 100%); margin: 18px auto 4px; }
+.bar-row { display: flex; align-items: center; gap: 10px; margin: 9px 0; }
+.bar-row .lb { width: 44px; font-size: 13px; text-align: right; opacity: 0.8; flex: none; }
+.bar-row .track { flex: 1; height: 22px; background: rgba(128, 96, 64, 0.16); border-radius: 999px; overflow: hidden; }
+.p-dark .bar-row .track { background: rgba(255, 220, 160, 0.14); }
+.bar-row .fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--mcd-yellow-deep), var(--mcd-red)); width: 0; transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.p-dark .bar-row .fill, .p-cover .bar-row .fill { background: linear-gradient(90deg, var(--mcd-yellow), #ff9d55); }
+.bar-row .val { width: 34px; font-size: 13px; font-weight: 700; text-align: left; flex: none; font-variant-numeric: tabular-nums; }
+.months { display: flex; align-items: flex-end; justify-content: space-between; gap: 3px; height: 150px; margin: 20px 0 6px; }
+.months .m { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+.months .m .b { width: 100%; max-width: 26px; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, var(--mcd-red), var(--mcd-red-deep)); height: 0; transition: height 0.8s cubic-bezier(0.22, 1, 0.36, 1); min-height: 2px; }
+.p-gold .months .m .b { background: linear-gradient(180deg, #c8452f, #8f1a12); }
+.months .m .t { font-size: 9px; opacity: 0.6; margin-top: 5px; }
+.list { list-style: none; padding: 0; margin: 14px 0 0; width: min(520px, 100%); }
+.list li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  padding: 11px 4px; border-bottom: 1px dashed rgba(128, 96, 64, 0.28); font-size: 15px; text-align: left;
+}
+.p-dark .list li { border-bottom-color: rgba(255, 220, 160, 0.22); }
+.list .rank { font-weight: 800; opacity: 0.45; margin-right: 8px; }
+.list .grow { flex: 1; }
+.list .v { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.callout {
+  margin-top: 18px; padding: 14px 18px; border-radius: 14px; font-size: 14.5px; line-height: 1.75;
+  background: rgba(218, 41, 28, 0.08); border: 1px solid rgba(218, 41, 28, 0.22); text-align: left;
+}
+.p-dark .callout { background: rgba(255, 199, 44, 0.09); border-color: rgba(255, 199, 44, 0.25); }
+.p-cover .callout, .p-persona .callout { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.3); color: #fff; }
+.persona-code { display: flex; justify-content: center; gap: 10px; margin: 20px 0 6px; flex-wrap: wrap; }
+.persona-code .dim {
+  background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px; padding: 10px 14px; min-width: 76px;
+}
+.persona-code .dim .k { font-size: 22px; font-weight: 800; }
+.persona-code .dim .t { font-size: 11px; opacity: 0.85; margin-top: 3px; }
+.persona-name { font-size: clamp(34px, 10vw, 58px); font-weight: 800; margin: 8px 0 4px; }
+.persona-tag { font-size: 15px; opacity: 0.9; }
+.card-wrap { width: min(330px, 82vw); margin: 22px auto 0; }
+.card-wrap canvas { width: 100%; border-radius: 16px; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35); display: block; }
+.btn {
+  appearance: none; border: none; cursor: pointer; margin-top: 18px;
+  background: var(--ink); color: #ffe9c2; font-size: 15px; font-weight: 700;
+  padding: 13px 30px; border-radius: 999px; transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.btn:active { transform: scale(0.96); }
+.p-dark .btn { background: var(--mcd-yellow); color: var(--ink); }
+.foot { margin-top: 26px; font-size: 11.5px; line-height: 1.8; opacity: 0.62; max-width: 560px; }
+.scroll-hint {
+  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+  font-size: 12px; letter-spacing: 0.2em; opacity: 0.75; animation: bob 1.8s ease-in-out infinite;
+}
+@keyframes bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: 0.12s; } .reveal.d2 { transition-delay: 0.24s; } .reveal.d3 { transition-delay: 0.36s; }
+.tag { display: inline-block; background: rgba(218, 41, 28, 0.12); color: var(--mcd-red); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin: 0 4px; }
+.p-dark .tag, .p-cover .tag, .p-persona .tag { background: rgba(255, 199, 44, 0.18); color: var(--mcd-yellow); }
+</style>
+</head>
+<body>
+
+<section class="page p-cover">
+  <div class="kicker">MCD WRAPPED · 年度美食报告</div>
+  <h1 class="title reveal">这一年，<br>麦麦陪你走过</h1>
+  <p class="subtitle reveal d1">麦麦体验用户 的麦当劳年度盘点<br>45 单 · ¥1,356.5 · 122 件</p>
+  <div class="scroll-hint">下滑开启 ↓</div>
+</section>
+
+<section class="page p-white">
+  <div class="kicker reveal">总览</div>
+  <h2 class="title reveal d1">你的年度麦麦账单</h2>
+  <div class="num-row">
+    <div class="num-cell reveal d1"><div class="n" data-target="45">0</div><div class="l">累计订单</div></div>
+    <div class="num-cell reveal d2"><div class="n" data-target="1356.53" data-decimals="1" data-prefix="¥">0</div><div class="l">总花费</div></div>
+    <div class="num-cell reveal d3"><div class="n" data-target="122">0</div><div class="l">吃掉件数</div></div>
+  </div>
+  <div class="num-row" style="margin-top:34px">
+    <div class="num-cell reveal d1"><div class="n" data-target="45">0</div><div class="l">麦麦活跃天</div></div>
+    <div class="num-cell reveal d2"><div class="n" data-target="202.27" data-decimals="1" data-prefix="¥">0</div><div class="l">优惠合计</div></div>
+    <div class="num-cell reveal d3"><div class="n" data-target="30.15" data-decimals="1" data-prefix="¥">0</div><div class="l">单均消费</div></div>
+  </div>
+</section>
+
+<section class="page p-dark">
+  <div class="kicker reveal">年度之最</div>
+  <h2 class="title reveal d1">这些瞬间，值得存档</h2>
+  <ul class="list reveal d2">
+    <li><span class="rank">👑</span><span class="grow">最贵一单 · 麦当劳(国贸三期餐厅)</span><span class="v">¥47.7</span></li>
+    <li><span class="rank">🏪</span><span class="grow">最常光临 · 麦当劳(国贸三期餐厅)</span><span class="v">10 次</span></li>
+    <li><span class="rank">❤️</span><span class="grow">本命餐品 · 巨无霸</span><span class="v">14 件</span></li>
+    <li><span class="rank">🧾</span><span class="grow">那一单点了</span><span class="v" style="font-weight:500">巨无霸、薯条(中)、可乐(中)</span></li>
+  </ul>
+  <div class="callout reveal d3">最爱餐品 TOP5：<ul class="list" style="margin-top:8px"><li><span class="rank">1</span><span class="grow">巨无霸</span><span class="v">14件 · ¥322.0</span></li><li><span class="rank">2</span><span class="grow">可乐(中)</span><span class="v">11件 · ¥110.0</span></li><li><span class="rank">3</span><span class="grow">薯条(中)</span><span class="v">11件 · ¥104.5</span></li><li><span class="rank">4</span><span class="grow">零度可乐(中)</span><span class="v">10件 · ¥100.0</span></li><li><span class="rank">5</span><span class="grow">圆筒冰淇淋</span><span class="v">9件 · ¥36.0</span></li></ul></div>
+</section>
+
+<section class="page p-light">
+  <div class="kicker reveal">时间节奏</div>
+  <h2 class="title reveal d1">你是「夜宵」型选手</h2>
+  <div class="chart reveal d2"><div class="bar-row"><span class="lb">早餐</span><span class="track"><span class="fill" data-w="0"></span></span><span class="val">0</span></div><div class="bar-row"><span class="lb">午餐</span><span class="track"><span class="fill" data-w="27"></span></span><span class="val">6</span></div><div class="bar-row"><span class="lb">下午茶</span><span class="track"><span class="fill" data-w="9"></span></span><span class="val">2</span></div><div class="bar-row"><span class="lb">晚餐</span><span class="track"><span class="fill" data-w="68"></span></span><span class="val">15</span></div><div class="bar-row"><span class="lb">夜宵</span><span class="track"><span class="fill" data-w="100"></span></span><span class="val">22</span></div></div>
+  <div class="callout reveal d3">全年 45 单中，夜宵时段出场最多，夜宵单占比 49% —— 鉴定为<b>夜猫子</b>。</div>
+</section>
+
+<section class="page p-gold">
+  <div class="kicker reveal">月度趋势</div>
+  <h2 class="title reveal d1">一年 12 个月的麦麦曲线</h2>
+  <div class="months reveal d2"><div class="m"><span class="b" data-h="14" title="1单"></span><span class="t">1月</span></div><div class="m"><span class="b" data-h="43" title="3单"></span><span class="t">2月</span></div><div class="m"><span class="b" data-h="100" title="7单"></span><span class="t">3月</span></div><div class="m"><span class="b" data-h="43" title="3单"></span><span class="t">4月</span></div><div class="m"><span class="b" data-h="43" title="3单"></span><span class="t">5月</span></div><div class="m"><span class="b" data-h="100" title="7单"></span><span class="t">6月</span></div><div class="m"><span class="b" data-h="43" title="3单"></span><span class="t">7月</span></div><div class="m"><span class="b" data-h="29" title="2单"></span><span class="t">8月</span></div><div class="m"><span class="b" data-h="57" title="4单"></span><span class="t">9月</span></div><div class="m"><span class="b" data-h="43" title="3单"></span><span class="t">10月</span></div><div class="m"><span class="b" data-h="71" title="5单"></span><span class="t">11月</span></div><div class="m"><span class="b" data-h="57" title="4单"></span><span class="t">12月</span></div></div>
+  <p class="subtitle reveal d3" style="margin-top:14px">最厚的那个月，发生了什么故事？</p>
+</section>
+
+<section class="page p-dark">
+  <div class="kicker reveal">营养盘点</div>
+  <h2 class="title reveal d1">这一年，你吃进了多少能量</h2>
+  <div class="big-num reveal d2"><span data-target="30981">0</span><span class="unit">kcal</span></div>
+  <p class="subtitle reveal d2">≈ 154.9 碗米饭 · 蛋白质 ≈ 187.8 个鸡蛋</p>
+  <ul class="list reveal d3" style="margin-top:22px"><li><span class="rank">总热量</span><span class="grow" style="opacity:.65;font-size:13px">≈ 154.9 碗米饭</span><span class="v">30,981 kcal</span></li><li><span class="rank">蛋白质</span><span class="grow" style="opacity:.65;font-size:13px">≈ 187.8 个鸡蛋</span><span class="v">1,127 g</span></li><li><span class="rank">脂肪</span><span class="grow" style="opacity:.65;font-size:13px">快乐来源</span><span class="v">1,436 g</span></li><li><span class="rank">碳水</span><span class="grow" style="opacity:.65;font-size:13px">幸福燃料</span><span class="v">3,562 g</span></li><li><span class="rank">钠</span><span class="grow" style="opacity:.65;font-size:13px">≈ 120.8 g 盐</span><span class="v">48,320 mg</span></li><li><span class="rank">钙</span><span class="grow" style="opacity:.65;font-size:13px">≈ 37.1 杯牛奶</span><span class="v">9,266 mg</span></li></ul>
+  <p class="foot reveal d3">营养数据基于官方餐品营养信息估算，仅供参考，不构成营养建议。</p>
+</section>
+
+<section class="page p-white">
+  <div class="kicker reveal">积分与奖品</div>
+  <h2 class="title reveal d1">麦门资产年报</h2>
+  <div class="num-row">
+    <div class="num-cell reveal d1"><div class="n" data-target="3250">0</div><div class="l">当前可用积分</div></div>
+    <div class="num-cell reveal d2"><div class="n" data-target="18600">0</div><div class="l">累计获得积分</div></div>
+    <div class="num-cell reveal d3"><div class="n" data-target="800">0</div><div class="l">即将过期积分</div></div>
+  </div>
+  <div class="callout reveal d2" style="margin-top:26px">
+    积分商城兑换 3 次（消耗 2300 积分）；抽奖战绩如下：
+    <ul class="list" style="margin-top:8px"><li><span class="rank">🎁</span><span class="grow">薯条(中)兑换券</span><span class="v" style="font-weight:500;opacity:.7">2026-09-30</span></li><li><span class="rank">🎁</span><span class="grow">麦麦周边冰箱贴</span><span class="v" style="font-weight:500;opacity:.7">2026-09-07</span></li><li><span class="rank">🎁</span><span class="grow">积分 88</span><span class="v" style="font-weight:500;opacity:.7">2026-08-03</span></li><li><span class="rank">🎁</span><span class="grow">麦辣鸡腿堡兑换券</span><span class="v" style="font-weight:500;opacity:.7">2026-07-09</span></li></ul>
+  </div>
+</section>
+
+<section class="page p-persona">
+  <div class="kicker reveal">麦格鉴定</div>
+  <p class="subtitle reveal d1">基于全年订单，你的麦门人格是</p>
+  <div class="persona-name reveal d1">夜局新晋红人</div>
+  <div class="persona-tag reveal d2">「入局不久，已是焦点」</div>
+  <div class="persona-code reveal d2">
+    <div class="dim"><div class="k">L</div><div class="t">忠诚型</div></div>
+    <div class="dim"><div class="k">N</div><div class="t">夜型</div></div>
+    <div class="dim"><div class="k">G</div><div class="t">群享</div></div>
+    <div class="dim"><div class="k">T</div><div class="t">尝鲜型</div></div>
+  </div>
+  <div class="callout reveal d3" style="max-width:520px">你的夜晚热闹又新鲜，新品和好友都不错过。夜宵局有你在，冷场是不可能的。<br><br>· 吃过的餐品 23 种<br>· 最常点「巨无霸」×14<br>· 最常在「夜宵」时段出没<br>· 根据地：麦当劳(国贸三期餐厅)</div>
+</section>
+
+<section class="page p-dark">
+  <div class="kicker reveal">SHARE</div>
+  <h2 class="title reveal d1">晒出你的麦麦年报</h2>
+  <p class="subtitle reveal d2">长按或点击按钮保存分享卡片</p>
+  <div class="card-wrap reveal d2"><canvas id="share-canvas" width="750" height="1000"></canvas></div>
+  <button class="btn reveal d3" id="dl-btn">保存分享卡片</button>
+  <p class="foot reveal d3">麦麦年报 MCD Wrapped · 麦当劳程序员创意开发大赛参赛作品<br>非麦当劳官方产品，由参赛者独立开发；项目输出仅供娱乐参考，不构成医疗、营养或其他专业建议；餐品信息、价格及供应状态以麦当劳官方渠道的实时结果为准。</p>
+</section>
+<script>window.REPORT = {"persona": {"code": "LNGT", "name": "夜局新晋红人", "tagline": "入局不久，已是焦点", "highlights": ["吃过的餐品 23 种", "最常点「巨无霸」×14", "最常在「夜宵」时段出没", "根据地：麦当劳(国贸三期餐厅)"]}};</script>
+<script>/* 麦麦年报 · 交互脚本（内联进最终单文件 HTML） */
+(function () {
+  "use strict";
+
+  // 1. 滚动显现
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("in");
+      // 数字滚动
+      e.target.querySelectorAll("[data-target]").forEach(function (el) {
+        if (el.dataset.done) return;
+        el.dataset.done = "1";
+        var target = parseFloat(el.dataset.target) || 0;
+        var decimals = parseInt(el.dataset.decimals || "0", 10);
+        var prefix = el.dataset.prefix || "";
+        var suffix = el.dataset.suffix || "";
+        var t0 = null;
+        function step(ts) {
+          if (!t0) t0 = ts;
+          var p = Math.min((ts - t0) / 900, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+      // 条形图生长
+      e.target.querySelectorAll(".bar-row .fill").forEach(function (el) {
+        el.style.width = (el.dataset.w || 0) + "%";
+      });
+      // 月度柱生长
+      e.target.querySelectorAll(".months .b").forEach(function (el, i) {
+        setTimeout(function () { el.style.height = (el.dataset.h || 0) + "%"; }, i * 60);
+      });
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+  // 2. 分享卡片（canvas 绘制并导出 PNG）
+  var canvas = document.getElementById("share-canvas");
+  var btn = document.getElementById("dl-btn");
+  if (!canvas || !window.REPORT) return;
+  var ctx = canvas.getContext("2d");
+  var W = canvas.width, H = canvas.height;
+
+  function drawCard() {
+    var r = window.REPORT;
+    var g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, "#da291c");
+    g.addColorStop(0.55, "#a8121b");
+    g.addColorStop(1, "#6d0d14");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+    // 顶部装饰圆
+    ctx.globalAlpha = 0.14;
+    ctx.fillStyle = "#ffc72c";
+    ctx.beginPath(); ctx.arc(W * 0.86, H * 0.1, W * 0.34, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
+    // 文案
+    ctx.textAlign = "center";
+    ctx.fillStyle = "rgba(255,255,255,0.72)";
+    ctx.font = "600 24px sans-serif";
+    ctx.fillText("我 的 麦 麦 年 报", W / 2, 96);
+    ctx.fillStyle = "#ffc72c";
+    ctx.font = "800 76px sans-serif";
+    ctx.fillText(r.persona.code, W / 2, 210);
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "800 52px sans-serif";
+    ctx.fillText(r.persona.name, W / 2, 292);
+    ctx.fillStyle = "rgba(255,255,255,0.85)";
+    ctx.font = "400 24px sans-serif";
+    wrapText(r.persona.tagline, W / 2, 350, W - 120, 36);
+    // 数据亮点
+    ctx.strokeStyle = "rgba(255,199,44,0.55)";
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(70, 460); ctx.lineTo(W - 70, 460); ctx.stroke();
+    var lines = (r.persona.highlights || []).slice(0, 4);
+    lines.forEach(function (t, i) {
+      ctx.fillStyle = "rgba(255,255,255,0.92)";
+      ctx.font = "500 26px sans-serif";
+      ctx.fillText(t, W / 2, 530 + i * 52);
+    });
+    ctx.fillStyle = "rgba(255,255,255,0.55)";
+    ctx.font = "400 20px sans-serif";
+    ctx.fillText("麦麦年报 MCD Wrapped", W / 2, H - 130);
+    ctx.fillText("非麦当劳官方产品 · 仅供娱乐参考", W / 2, H - 92);
+  }
+  function wrapText(text, x, y, maxW, lh) {
+    var words = String(text || "").split("");
+    var line = "", yy = y;
+    for (var i = 0; i < words.length; i++) {
+      var test = line + words[i];
+      if (ctx.measureText(test).width > maxW && line) {
+        ctx.fillText(line, x, yy); line = words[i]; yy += lh;
+      } else { line = test; }
+    }
+    if (line) ctx.fillText(line, x, yy);
+  }
+  drawCard();
+  if (btn) {
+    btn.addEventListener("click", function () {
+      var a = document.createElement("a");
+      a.download = "麦麦年报-分享卡片.png";
+      a.href = canvas.toDataURL("image/png");
+      a.click();
+    });
+  }
+})();
+</script>
+</body>
+</html>
